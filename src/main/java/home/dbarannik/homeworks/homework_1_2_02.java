@@ -19,12 +19,12 @@ public class homework_1_2_02 {
     }
 
     public static void printNumber(int Num) {
-        int numTmp = Math.abs(Num);
-        int numMod = numTmp;
+        int numAbs = Math.abs(Num);
+        int numMod = numAbs;
         System.out.printf("Your number is %d.%n", Num);
-        while (numTmp > 0) {
-            numMod = numTmp % 10;
-            numTmp = numTmp / 10;
+        while (numAbs > 0) {
+            numMod = numAbs % 10;
+            numAbs = numAbs / 10;
             System.out.printf("%d.%n", numMod);
         }
     }
