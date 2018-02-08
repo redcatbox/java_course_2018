@@ -16,10 +16,10 @@ public class lab_1_02 {
         System.out.println("Enter length in kms: ");
         lengthInKilometers = console.nextDouble();
 
-        System.out.printf("Velocity in m/s = %f.%n", CalcVelocityKmsInMinsToMsInSecs(timeInMins, lengthInKilometers));
+        System.out.printf("Velocity in m/s = %f.%n", calcVelocityKmsInMinsToMsInSecs(timeInMins, lengthInKilometers));
     }
 
-    public static double CalcVelocityKmsInMinsToMsInSecs(double timeMins, double lengthKms) {
+    public static double calcVelocityKmsInMinsToMsInSecs(double timeMins, double lengthKms) {
         double velocityMsInSecs = (lengthKms*1000)/(timeMins*60);
         return velocityMsInSecs;
     }
