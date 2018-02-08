@@ -22,7 +22,7 @@ public class homework_2_02 {
         long digitMax = 0;
 
         // Get min digit
-        if(numAbs > 10)
+        if(numAbs > 9)
         {
             do {
                 numMod = numAbs % 10;
