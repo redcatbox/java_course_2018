@@ -7,10 +7,9 @@ import java.util.Scanner;
  */
 public class homework_1_2_02 {
     public static void main(String[] args) {
-        ///имена переменных с маленькой буквы должны начинаться
-        int Number = 0;
-        Number = setNumber();
-        printNumber(Number);
+        int number = 0;
+        number = setNumber();
+        printNumber(number);
     }
 
     public static int setNumber() {
@@ -19,16 +18,14 @@ public class homework_1_2_02 {
         return console.nextInt();
     }
 
-     ///имена параметров методов с маленькой буквы должны начинаться
     public static void printNumber(int Num) {
-         ///имена переменных с маленькой буквы должны начинаться
-        int NumTmp = Math.abs(Num);
-        int NumMod = NumTmp;
+        int numTmp = Math.abs(Num);
+        int numMod = numTmp;
         System.out.printf("Your number is %d.%n", Num);
-        while (NumTmp > 0) {
-            NumMod = NumTmp % 10;
-            NumTmp = NumTmp / 10;
-            System.out.printf("%d.%n", NumMod);
+        while (numTmp > 0) {
+            numMod = numTmp % 10;
+            numTmp = numTmp / 10;
+            System.out.printf("%d.%n", numMod);
         }
     }
 }
