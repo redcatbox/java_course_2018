@@ -18,10 +18,10 @@ public class homework_1_2_02 {
         return console.nextInt();
     }
 
-    public static void printNumber(int Num) {
-        int numAbs = Math.abs(Num);
+    public static void printNumber(int num) {
+        int numAbs = Math.abs(num);
         int numMod = numAbs;
-        System.out.printf("Your number is %d.%n", Num);
+        System.out.printf("Your number is %d.%n", num);
         while (numAbs > 0) {
             numMod = numAbs % 10;
             numAbs = numAbs / 10;
