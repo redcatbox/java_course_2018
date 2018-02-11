@@ -7,7 +7,7 @@ import java.util.regex.Pattern;
 
 public class HomeWork_3_02 {
     public static void main(String[] args) {
-        String userString = getValidInputString(); //Mama papA totos kiwi
+        String userString = getValidInputString(); //Mama papA cocos kiwi
         calculateCharacters(userString);
     }
 
@@ -32,25 +32,22 @@ public class HomeWork_3_02 {
     public static void calculateCharacters(String inputString) {
         int charCounter = 0;
         String result;
-        char[] chars = inputString.toCharArray();
 
-        // Get and sort user string
+        result = inputString + '~'; // Hack
+        char[] chars = result.toCharArray();
         Arrays.sort(chars);
         result = new String(chars);
         //result = result.trim(); // Remove spaces
-        System.out.println("String = " + inputString);
-        System.out.println("Sorted = " + result);
+        //System.out.println("String = " + inputString);
+        //System.out.println("Sorted = " + result);
 
-        for (int i = 0; i < chars.length; i++) {
-            if (i == 0) {
+        for (int i = 1; i < chars.length; i++) {
+            if (chars[i] == chars[i - 1]) {
                 charCounter++;
             } else {
-                if (chars[i] == chars[i - 1]) {
-                    charCounter++;
-                } else {
-                    System.out.printf("Character '%s' appears %d times.%n", chars[i - 1], charCounter);
-                    charCounter = 0;
-                }
+                charCounter++;
+                System.out.printf("Character '%s' appears %d times.%n", chars[i - 1], charCounter);
+                charCounter = 0;
             }
         }
     }
