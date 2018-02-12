@@ -2,8 +2,7 @@ package home.dbarannik.homeworks;
 
 import java.util.Scanner;
 
-public class homework_2_01 {
-
+public class HomeWork_2_01 {
     public static void main(String[] args) {
         String studentFullName = getStudentFullName(); //Barannik Dmitriy Nikolaevich
         printStudentInfo(studentFullName);
@@ -26,12 +25,15 @@ public class homework_2_01 {
         String thirdString = "";
         String fourthString = "";
 
-        // By definition name is always widest than other texts
-        fieldWidth = fullName.length() + 4;
+        // Get largest string
+        if (fullName.length() >= titleText.length()) {
+            fieldWidth = fullName.length() + 4;
+        } else {
+            fieldWidth = titleText.length() + 4;
+        }
 
         // Make first (and last) string
-        for(int i = 0; i < fieldWidth; i++)
-        {
+        for(int i = 0; i < fieldWidth; i++) {
             firstString = firstString + frameSymbol;
         }
 
@@ -42,7 +44,7 @@ public class homework_2_01 {
         thirdString = thirdString + frameSymbol + textAndSpaces(fieldWidth, positionText, spaceSymbol) + frameSymbol;
 
         // Make fourth string
-        fourthString = fourthString + frameSymbol + spaceSymbol + fullName + spaceSymbol + frameSymbol;
+        fourthString = fourthString + frameSymbol + textAndSpaces(fieldWidth, fullName, spaceSymbol) + frameSymbol;
 
         // Print final result to console
         System.out.println(firstString);
@@ -56,8 +58,7 @@ public class homework_2_01 {
         String result = "";
 
         // Fill left side with spaces
-        for(int i = 0; i < ((fieldWidth - textBetween.length() - 2) / 2); i++)
-        {
+        for(int i = 0; i < ((fieldWidth - textBetween.length() - 2) / 2); i++) {
             result = result + spaceSymbol;
         }
 
@@ -65,21 +66,15 @@ public class homework_2_01 {
         result = result + textBetween;
 
         // Fill right side with spaces
-        if((fieldWidth - textBetween.length()) % 2 == 0)
-        {
-            for(int i = 0; i < ((fieldWidth - textBetween.length() - 2) / 2); i++)
-            {
+        if((fieldWidth - textBetween.length()) % 2 == 0) {
+            for(int i = 0; i < ((fieldWidth - textBetween.length() - 2) / 2); i++) {
+                result = result + spaceSymbol;
+            }
+        } else {
+            for(int i = 0; i < (((fieldWidth - textBetween.length() - 2) / 2) + 1); i++) {
                 result = result + spaceSymbol;
             }
         }
-        else
-        {
-            for(int i = 0; i < (((fieldWidth - textBetween.length() - 2) / 2) + 1); i++)
-            {
-                result = result + spaceSymbol;
-            }
-        }
-
         return result;
     }
 }
