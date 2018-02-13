@@ -32,21 +32,42 @@ public class HomeWork_3_04 {
         return result;
     }
 
+    /*
+    01 03-04 10-11
+    | /  /  /  /
+    02 05 09 12 19
+      /  /  /  / |
+    06 08 13 18 20
+    | /  /  /  /
+    07 14 17 21 24
+      /  /  /  / |
+    15-16 22-23 25
+    */
     public static int[][] fillZigzag2DArray(int arraySize) {
         int[][] result = new int[arraySize][arraySize];
-        for (int i = 1; i <= arraySize; i++) {
-            for (int j = 1; j <= arraySize; j++) {
-                result[i-1][j-1] = i * j;
+        for (int y = 0; y < arraySize; y++) {
+            for (int x = 0; x < arraySize; x++) {
+                result[x][y] = (y + 1) + x * arraySize;
             }
         }
         return result;
     }
 
     public static void print2DIntArray(int[][] intArray2D) {
-        for (int i = 0; i < intArray2D.length; i++) {
-            for (int j = 0; j < intArray2D.length; j++) {
-                System.out.printf(" %d ", intArray2D[i][j]);
+        // This can align results up to 3 numbers
+        for (int x = 0; x < intArray2D.length; x++) {
+            for (int y = 0; y < intArray2D.length; y++) {
+                if (intArray2D.length * intArray2D.length < 1000) {
+                    if (intArray2D[x][y] < 10) {
+                        System.out.printf("  %d ", intArray2D[x][y]);
+                    } else if (intArray2D[x][y] < 100) {
+                        System.out.printf(" %d ", intArray2D[x][y]);
+                    } else {
+                        System.out.printf("%d ", intArray2D[x][y]);
+                    }
+                }
             }
+            System.out.printf("%n");
             System.out.printf("%n");
         }
     }
