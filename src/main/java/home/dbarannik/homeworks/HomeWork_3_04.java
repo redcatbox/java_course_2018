@@ -5,6 +5,7 @@ import java.util.Scanner;
 public class HomeWork_3_04 {
     final static int MIN_ARRAY_SIZE = 2;
     final static String ERROR_MESSAGE = "Invalid value! Please, try again...";
+
     public static void main(String[] args) {
         int arraySize = getInputValidArraySize();
         int[][] array = fillZigzag2DArray(arraySize);
@@ -33,20 +34,21 @@ public class HomeWork_3_04 {
     }
 
     /*
-    01 03-04 10-11
-    | /  /  /  /
-    02 05 09 12 19
-      /  /  /  / |
-    06 08 13 18 20
-    | /  /  /  /
-    07 14 17 21 24
-      /  /  /  / |
-    15-16 22-23 25
+    01 03-04 10-11              01
+    | /  /  /  /              02  03
+    02 05 09 12 19          06  05  04
+      /  /  /  / |        07  08  09  10
+    06 08 13 18 20      15  14  13  12  11
+    | /  /  /  /          16  17  18  19
+    07 14 17 21 24          22  21  20
+      /  /  /  / |            23  24
+    15-16 22-23 25              25
     */
     public static int[][] fillZigzag2DArray(int arraySize) {
         int[][] result = new int[arraySize][arraySize];
-        for (int y = 0; y < arraySize; y++) {
-            for (int x = 0; x < arraySize; x++) {
+
+        for (int x = 0; x < arraySize; x++) {
+            for (int y = 0; y < arraySize; y++) {
                 result[x][y] = (y + 1) + x * arraySize;
             }
         }
