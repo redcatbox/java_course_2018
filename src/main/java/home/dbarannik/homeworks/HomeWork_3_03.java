@@ -5,9 +5,9 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class HomeWork_3_03 {
-    final static String REGEX_FULL_NAME = "[a-zA-Z\\s'\\-?]+";
-    final static String REGEX_PHONE_NUMBER = "^(\\+380\\()\\d{2}\\)\\d{7}$";
-    final static String REGEX_EMAIL_ADDRESS = "^[a-zA-Z0-9\\-?\\_?]+(\\@)[a-zA-Z]+(\\.)[a-zA-Z]+$";
+    final static Pattern REGEX_FULL_NAME = Pattern.compile("[a-zA-Z\\s'\\-?]+");
+    final static Pattern REGEX_PHONE_NUMBER = Pattern.compile("^(\\+380\\()\\d{2}\\)\\d{7}$");
+    final static Pattern REGEX_EMAIL_ADDRESS = Pattern.compile("^[a-zA-Z0-9\\-?\\_?]+(\\@)[a-zA-Z]+(\\.)[a-zA-Z]+$");
     final static String ERROR_MESSAGE_FULL_NAME = "Invalid full name. Please try again...";
     final static String ERROR_MESSAGE_PHONE_NUMBER = "Invalid phone number. Please try again...";
     final static String ERROR_MESSAGE_EMAIL_ADDRESS = "Invalid email address. Please try again...";
@@ -42,21 +42,19 @@ public class HomeWork_3_03 {
         System.out.printf("Email: %s.%n", emailAddress);
     }
 
-    public static String getAndValidateInputString(String regex, String errorMessage) {
-        String result = "";
+    public static String getAndValidateInputString(Pattern regex, String errorMessage) {
+        String result;
         Scanner scan = new Scanner(System.in);
-        Pattern pat = Pattern.compile(regex);
 
         while (true) {
             result = scan.nextLine();
-            Matcher mat = pat.matcher(result);
+            Matcher mat = regex.matcher(result);
 
             if (mat.matches()) {
-                break;
+                return result;
             } else {
                 System.out.println(errorMessage);
             }
         }
-        return result;
     }
 }
