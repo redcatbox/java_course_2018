@@ -2,6 +2,10 @@ package home.dbarannik.ConsoleReader;
 
 import java.util.Scanner;
 
+/**
+Все хорошо, единственное Scanner можно создать еще в 
+main и просто передать в конструктор во все классы где он используется.
+**/
 public class ConsoleReader {
     public int getValidInputInt(int lowerLimit, int upperLimit) {
         int inputInt;
