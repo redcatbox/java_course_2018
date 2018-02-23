@@ -24,8 +24,8 @@ public class Calculator {
             return new Power();
         } else if ("log".equals(operator)) {
             return new Logarithm();
-        } else if ("sqrt".equals(operator)) {
-            return new Sqrt();
+        } else if ("root".equals(operator)) {
+            return new Root();
         }
         return null;
     }
@@ -33,7 +33,7 @@ public class Calculator {
     public static void main(String[] args) {
         Calculator calculator = new Calculator();
         double left = 5;
-        double right = 10;
+        double right = 20;
 
         System.out.println( left + " + " + right + " = " + calculator.calculate(left, right, "+") );
         System.out.println( left + " - " + right + " = " + calculator.calculate(left, right, "-") );
@@ -41,6 +41,6 @@ public class Calculator {
         System.out.println( left + " / " + right + " = " + calculator.calculate(left, right, "/") );
         System.out.println( left + " ^ " + right + " = " + calculator.calculate(left, right, "^") );
         System.out.println( left + " log " + right + " = " + calculator.calculate(left, right, "log") );
-        System.out.println( left + " sqrt " + right + " = " + calculator.calculate(left, right, "sqrt") );
+        System.out.println( left + " root " + right + " = " + calculator.calculate(left, right, "root") );
     }
 }
