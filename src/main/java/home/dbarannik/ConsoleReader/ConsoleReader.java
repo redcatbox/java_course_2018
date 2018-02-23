@@ -3,9 +3,9 @@ package home.dbarannik.ConsoleReader;
 import java.util.Scanner;
 
 public class ConsoleReader {
-    public int getValidInputInt(int lowerLimit, int upperLimit) {
-        Scanner console = new Scanner(System.in);
+    Scanner console = new Scanner(System.in);
 
+    public int getValidInputInt(int lowerLimit, int upperLimit) {
         while (true) {
             int inputInt;
             if (console.hasNextInt()) {
@@ -23,8 +23,6 @@ public class ConsoleReader {
     }
 
     public float getValidInputFloat(float lowerLimit, float upperLimit) {
-        Scanner console = new Scanner(System.in);
-
         while (true) {
             float inputFloat;
             if (console.hasNextFloat()) {
