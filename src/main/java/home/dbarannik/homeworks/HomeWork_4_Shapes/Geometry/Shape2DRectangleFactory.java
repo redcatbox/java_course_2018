@@ -2,14 +2,12 @@ package home.dbarannik.homeworks.HomeWork_4_Shapes.Geometry;
 
 import home.dbarannik.ConsoleReader.ConsoleReader;
 
-public class FactoryRectangle2D extends FactoryShape2D {
+public class Shape2DRectangleFactory extends Shape2DFactory {
     protected float sideLengthX;
     protected float sideLengthY;
 
     @Override
     public void getShapeParams() {
-        ConsoleReader reader = new ConsoleReader();
-
         System.out.println("Enter rectangle side X length (1-1000):");
         sideLengthX = reader.getValidInputFloat(1, 1000);
         System.out.println("Enter rectangle side Y length (1-1000):");
@@ -17,7 +15,7 @@ public class FactoryRectangle2D extends FactoryShape2D {
     }
 
     @Override
-    public ShapeRectangle2D createShape() {
-        return new ShapeRectangle2D(sideLengthX, sideLengthY);
+    public Shape2DRectangle createShape() {
+        return new Shape2DRectangle(sideLengthX, sideLengthY);
     }
 }

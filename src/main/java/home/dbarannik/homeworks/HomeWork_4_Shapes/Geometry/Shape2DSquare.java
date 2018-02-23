@@ -1,9 +1,9 @@
 package home.dbarannik.homeworks.HomeWork_4_Shapes.Geometry;
 
-public class ShapeSquare2D extends Shape2D {
+public class Shape2DSquare extends Shape2D {
     protected float sideLength;
 
-    public ShapeSquare2D(float side) {
+    public Shape2DSquare(float side) {
         super(0, 0);
         this.sideLength = side;
     }
@@ -22,6 +22,6 @@ public class ShapeSquare2D extends Shape2D {
 
     @Override
     public String toString() {
-        return "ShapeSquare2D with Side = " + sideLength + " Perimeter = " + getPerimeter() + " Square = " + getSquare();
+        return "Shape2DSquare with Side = " + sideLength + " Perimeter = " + getPerimeter() + " Square = " + getSquare();
     }
 }

@@ -4,10 +4,10 @@ import java.util.Scanner;
 
 public class ConsoleReader {
     public int getValidInputInt(int lowerLimit, int upperLimit) {
-        int inputInt;
         Scanner console = new Scanner(System.in);
 
         while (true) {
+            int inputInt;
             if (console.hasNextInt()) {
                 inputInt = console.nextInt();
                 if (inputInt >= lowerLimit && inputInt <= upperLimit) {
@@ -23,10 +23,10 @@ public class ConsoleReader {
     }
 
     public float getValidInputFloat(float lowerLimit, float upperLimit) {
-        float inputFloat;
         Scanner console = new Scanner(System.in);
 
         while (true) {
+            float inputFloat;
             if (console.hasNextFloat()) {
                 inputFloat = console.nextFloat();
                 if (inputFloat >= lowerLimit && inputFloat <= upperLimit) {

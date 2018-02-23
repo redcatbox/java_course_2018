@@ -1,9 +1,9 @@
 package home.dbarannik.homeworks.HomeWork_4_Shapes.Geometry;
 
-public class ShapeCircle2D extends Shape2D {
+public class Shape2DCircle extends Shape2D {
     protected float radius;
 
-    public ShapeCircle2D(float radius) {
+    public Shape2DCircle(float radius) {
         super(0, 0);
         this.radius = radius;
     }
@@ -22,6 +22,6 @@ public class ShapeCircle2D extends Shape2D {
 
     @Override
     public String toString() {
-        return "ShapeCircle2D with radius = " + radius + " Perimeter = " + getPerimeter() + " Square = " + getSquare();
+        return "Shape2DCircle with radius = " + radius + " Perimeter = " + getPerimeter() + " Square = " + getSquare();
     }
 }

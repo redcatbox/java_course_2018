@@ -1,6 +1,9 @@
 package home.dbarannik.homeworks.HomeWork_4_Shapes.Geometry;
 
-public abstract class FactoryShape2D {
+import home.dbarannik.ConsoleReader.ConsoleReader;
+
+public abstract class Shape2DFactory {
+    ConsoleReader reader = new ConsoleReader();
     public abstract void getShapeParams();
     public abstract Shape2D createShape();
 }

@@ -1,10 +1,10 @@
 package home.dbarannik.homeworks.HomeWork_4_Shapes.Geometry;
 
-public class ShapeRectangle2D extends Shape2D  {
+public class Shape2DRectangle extends Shape2D  {
     protected float sideLengthX;
     protected float sideLengthY;
 
-    public ShapeRectangle2D(float sideLengthX, float sideLengthY) {
+    public Shape2DRectangle(float sideLengthX, float sideLengthY) {
         super(0, 0);
         this.sideLengthX = sideLengthX;
         this.sideLengthY = sideLengthY;
@@ -23,6 +23,6 @@ public class ShapeRectangle2D extends Shape2D  {
 
     @Override
     public String toString() {
-        return "ShapeRectangle2D with SideX = " + sideLengthX + " SideY = " + sideLengthY + " Perimeter = " + getPerimeter() + " Square = " + getSquare();
+        return "Shape2DRectangle with SideX = " + sideLengthX + " SideY = " + sideLengthY + " Perimeter = " + getPerimeter() + " Square = " + getSquare();
     }
 }
