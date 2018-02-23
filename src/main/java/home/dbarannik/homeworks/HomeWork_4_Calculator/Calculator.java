@@ -8,7 +8,6 @@ public class Calculator {
             System.out.println("Unknown operator " + operator);
             return Double.NaN;
         }
-
         return operation.resultFor(value1, value2);
     }
 
@@ -21,16 +20,27 @@ public class Calculator {
             return new Multiplication();
         } else if ("/".equals(operator)) {
             return new Division();
+        } else if ("^".equals(operator)) {
+            return new Power();
+        } else if ("log".equals(operator)) {
+            return new Logarithm();
+        } else if ("sqrt".equals(operator)) {
+            return new Sqrt();
         }
         return null;
     }
 
     public static void main(String[] args) {
         Calculator calculator = new Calculator();
+        double left = 5;
+        double right = 10;
 
-        System.out.println( calculator.calculate(100, 200, "+") );
-        System.out.println( calculator.calculate(100, 200, "-") );
-        System.out.println( calculator.calculate(100, 200, "*") );
-        System.out.println( calculator.calculate(100, 200, "/") );
+        System.out.println( left + " + " + right + " = " + calculator.calculate(left, right, "+") );
+        System.out.println( left + " - " + right + " = " + calculator.calculate(left, right, "-") );
+        System.out.println( left + " * " + right + " = " + calculator.calculate(left, right, "*") );
+        System.out.println( left + " / " + right + " = " + calculator.calculate(left, right, "/") );
+        System.out.println( left + " ^ " + right + " = " + calculator.calculate(left, right, "^") );
+        System.out.println( left + " log " + right + " = " + calculator.calculate(left, right, "log") );
+        System.out.println( left + " sqrt " + right + " = " + calculator.calculate(left, right, "sqrt") );
     }
 }
