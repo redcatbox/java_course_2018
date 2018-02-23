@@ -3,7 +3,7 @@ package home.dbarannik.ConsoleReader;
 import java.util.Scanner;
 
 public class ConsoleReader {
-    Scanner console = new Scanner(System.in);
+    private final Scanner console = new Scanner(System.in);
 
     public int getValidInputInt(int lowerLimit, int upperLimit) {
         while (true) {
