@@ -1,6 +1,6 @@
 package home.dbarannik.labs.Lab_4_Pizza;
 
-public class PolloPizzaMaker extends PizzaFactory {
+public class PolloPizzaMaker extends PizzaMaker {
     @Override
     protected void addIngridients() {
         System.out.println("Adding chicken, cheese...");

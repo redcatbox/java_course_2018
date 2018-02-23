@@ -1,21 +1,21 @@
 package home.dbarannik.labs.Lab_4_Pizza;
 
 public class PizzaMachine {
-    public static void main(String[] args) {
-        getOrder(Button.ONE);
-        getOrder(Button.TWO);
+    PizzaMakerFactory pizzaMakerFactory;
+
+    public PizzaMachine(PizzaMakerFactory pizzaMakerFactory) {
+        this.pizzaMakerFactory = pizzaMakerFactory;
     }
 
-    public static void getOrder(Button button) {
-        PizzaFactory factory = null;
-        switch (button) {
-            case ONE:
-                factory = new PolloPizzaMaker();
-                break;
-            case TWO:
-                factory = new PepperonniPizzaMaker();
-                break;
-        }
-        factory.cook();
+    public Pizza order(Button button) {
+        PizzaMaker pizzaMaker = pizzaMakerFactory.getPizzaMaker(button);
+        return pizzaMaker.cook();
+    }
+
+    public static void main(String[] args) {
+        Pizza pizza;
+        pizza = new PizzaMachine(new ItalianPizzaMakerFactory()).order(Button.ONE);
+        pizza = new PizzaMachine(new ItalianPizzaMakerFactory()).order(Button.TWO);
+
     }
 }

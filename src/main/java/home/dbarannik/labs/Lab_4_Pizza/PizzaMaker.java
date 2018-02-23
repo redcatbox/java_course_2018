@@ -1,6 +1,6 @@
 package home.dbarannik.labs.Lab_4_Pizza;
 
-public abstract class PizzaFactory {
+public abstract class PizzaMaker {
     public Pizza cook() {
         addBase();
         addIngridients();
