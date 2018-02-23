@@ -1,14 +1,49 @@
 package home.dbarannik.homeworks.HomeWork_4_Calculator;
 
+import home.dbarannik.ConsoleReader.ConsoleReader;
+
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 public class Calculator {
-    public double calculate(double value1, double value2, String operator) {
+    final static Pattern VALID_EXPRESSION = Pattern.compile("^[0-9]+\\.?[0-9]*\\s[a-z\\+\\-\\*\\/\\^]+\\s[0-9]+\\.?[0-9]*$");
+    double left;
+    double right;
+    double result;
+    String operator;
+    private String expression;
+    private ConsoleReader reader = new ConsoleReader();
+
+    public void getValidExpression() {
+        while (true) {
+            expression = "";
+            expression = reader.getInputString();
+            Matcher mat = VALID_EXPRESSION.matcher(expression);
+            if (mat.matches()) {
+                parseExpression();
+                result = calculate(left, right, operator);
+                break;
+            } else {
+                System.out.println("\033[31;1mInvalid expression! Try again...\033[0m");
+            }
+        }
+    }
+
+    public void parseExpression() {
+        String[] arguments = expression.split(" ");
+        left = Double.parseDouble(arguments[0]);
+        operator = arguments[1];
+        right = Double.parseDouble(arguments[2]);
+    }
+
+    public double calculate(double left, double right, String operator) {
         BinaryOperation operation = getOperationFor(operator);
 
         if (operation == null) {
             System.out.println("Unknown operator " + operator);
             return Double.NaN;
         }
-        return operation.resultFor(value1, value2);
+        return operation.resultFor(left, right);
     }
 
     private BinaryOperation getOperationFor(String operator) {
@@ -28,19 +63,5 @@ public class Calculator {
             return new Root();
         }
         return null;
-    }
-
-    public static void main(String[] args) {
-        Calculator calculator = new Calculator();
-        double left = 5;
-        double right = 20;
-
-        System.out.println( left + " + " + right + " = " + calculator.calculate(left, right, "+") );
-        System.out.println( left + " - " + right + " = " + calculator.calculate(left, right, "-") );
-        System.out.println( left + " * " + right + " = " + calculator.calculate(left, right, "*") );
-        System.out.println( left + " / " + right + " = " + calculator.calculate(left, right, "/") );
-        System.out.println( left + " ^ " + right + " = " + calculator.calculate(left, right, "^") );
-        System.out.println( left + " log " + right + " = " + calculator.calculate(left, right, "log") );
-        System.out.println( left + " root " + right + " = " + calculator.calculate(left, right, "root") );
     }
 }
