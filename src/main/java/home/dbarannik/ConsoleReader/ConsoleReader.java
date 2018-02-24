@@ -38,4 +38,15 @@ public class ConsoleReader {
             }
         }
     }
+
+    public String getInputString() {
+        while (true) {
+            if (console.hasNextLine()) {
+                return console.nextLine();
+            } else {
+                System.out.println("Invalid input! Try again...");
+                console.next();
+            }
+        }
+    }
 }
