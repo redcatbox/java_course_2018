@@ -1,6 +1,8 @@
 package home.dbarannik.homeworks.HomeWork_4_Calculator;
 
 import home.dbarannik.ConsoleReader.ConsoleReader;
+import home.dbarannik.Exceptions.InvalidBinaryOperator;
+import home.dbarannik.Exceptions.InvalidMathExpression;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -14,7 +16,7 @@ public class Calculator {
     private String expression;
     private ConsoleReader reader = new ConsoleReader();
 
-    public void getValidExpression() {
+    public void getValidExpression() throws InvalidMathExpression {
         while (true) {
             expression = "";
             expression = reader.getInputString();
@@ -24,7 +26,7 @@ public class Calculator {
                 result = calculate(left, right, operator);
                 break;
             } else {
-                System.out.println("\033[31;1mInvalid expression! Try again...\033[0m");
+                throw new InvalidMathExpression("Invalid expression! Try again...");
             }
         }
     }
@@ -36,10 +38,11 @@ public class Calculator {
         right = Double.parseDouble(arguments[2]);
     }
 
-    public double calculate(double left, double right, String operator) {
+    public double calculate(double left, double right, String operator) throws InvalidBinaryOperator {
         BinaryOperation operation = getOperationFor(operator);
 
         if (operation == null) {
+            throw new InvalidBinaryOperator();
             System.out.println("Unknown operator " + operator);
             return Double.NaN;
         }
