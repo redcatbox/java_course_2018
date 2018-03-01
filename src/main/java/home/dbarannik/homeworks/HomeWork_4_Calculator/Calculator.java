@@ -1,55 +1,51 @@
 package home.dbarannik.homeworks.HomeWork_4_Calculator;
 
 import home.dbarannik.ConsoleReader.ConsoleReader;
-import home.dbarannik.Exceptions.InvalidBinaryOperator;
-import home.dbarannik.Exceptions.InvalidMathExpression;
+import home.dbarannik.Exceptions.UnsupportedBinaryOperator;
+import home.dbarannik.Exceptions.UnsupportedMathExpression;
+import home.dbarannik.Exceptions.UnsupportedMathOperation;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class Calculator {
-    final static Pattern VALID_EXPRESSION = Pattern.compile("^[0-9]+\\.?[0-9]*\\s[a-z\\+\\-\\*\\/\\^]+\\s[0-9]+\\.?[0-9]*$");
+    final static Pattern VALID_EXPRESSION = Pattern.compile("^\\-?[0-9]+\\.?[0-9]*\\s[a-z\\+\\-\\*\\/\\^]+\\s\\-?[0-9]+\\.?[0-9]*$");
     double left;
     double right;
     double result;
     String operator;
     private String expression;
     private ConsoleReader reader = new ConsoleReader();
+    BinaryOperation operation;
 
-    public void getValidExpression() throws InvalidMathExpression {
+    public void getValidExpression() throws UnsupportedMathExpression {
         while (true) {
             expression = "";
             expression = reader.getInputString();
             Matcher mat = VALID_EXPRESSION.matcher(expression);
             if (mat.matches()) {
-                parseExpression();
-                result = calculate(left, right, operator);
                 break;
             } else {
-                throw new InvalidMathExpression("Invalid expression! Try again...");
+                throw new UnsupportedMathExpression(expression);
             }
         }
     }
 
-    public void parseExpression() {
+    public void parseExpression() throws UnsupportedBinaryOperator {
         String[] arguments = expression.split(" ");
         left = Double.parseDouble(arguments[0]);
         operator = arguments[1];
         right = Double.parseDouble(arguments[2]);
+        operation = getOperationFor(operator);
     }
 
-    public double calculate(double left, double right, String operator) throws InvalidBinaryOperator {
-        BinaryOperation operation = getOperationFor(operator);
-
-        if (operation == null) {
-            throw new InvalidBinaryOperator();
-            System.out.println("Unknown operator " + operator);
-            return Double.NaN;
-        }
-        return operation.resultFor(left, right);
+    public double calculate() throws UnsupportedMathOperation{
+        result = operation.resultFor(left, right);
+        System.out.println( left + " " + operator + " " + right + " = " + result);
+        return result;
     }
 
-    private BinaryOperation getOperationFor(String operator) {
+    private BinaryOperation getOperationFor(String operator) throws UnsupportedBinaryOperator {
         if ("+".equals(operator)) {
             return new Addition();
         } else if ("-".equals(operator)) {
@@ -64,7 +60,8 @@ public class Calculator {
             return new Logarithm();
         } else if ("root".equals(operator)) {
             return new Root();
+        } else {
+            throw new UnsupportedBinaryOperator(operator);
         }
-        return null;
     }
 }
