@@ -21,11 +21,11 @@ public class CalculatorMain {
                 calculator.parseExpression();
                 calculator.calculate();
             } catch (UnsupportedMathExpression uME) {
-                System.out.println("Unsupported expression " + uME.getExpression());
+                System.err.println("Unsupported expression " + uME.getExpression());
             } catch (UnsupportedBinaryOperator uBO) {
-                System.out.println("Unsupported binary operator " + uBO.getOperator());
+                System.err.println("Unsupported binary operator " + uBO.getOperator());
             } catch (UnsupportedMathOperation uMO) {
-                System.out.println("Unsupported math operation " + uMO.getOperation());
+                System.err.println("Unsupported math operation " + uMO.getOperation());
             }
         }
     }
