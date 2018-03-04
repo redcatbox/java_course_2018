@@ -33,7 +33,8 @@ public class GrepMain {
         }
 
         // Get grep expression
-        // regex - don’t, You’ve // "^[a-zA-Z]+'[a-zA-Z]+$" // not working :(
+        // don’t, You’ve
+        // regex = [a-zA-Z]+'[a-zA-Z]+
         while (true) {
             System.out.println("Specify text or regular expression to grep:");
             try {

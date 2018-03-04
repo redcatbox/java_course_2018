@@ -9,6 +9,7 @@ import java.nio.file.Path;
 import java.nio.file.SimpleFileVisitor;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.regex.PatternSyntaxException;
 
 public class GrepFileVisitor extends SimpleFileVisitor<Path> {
     private final PrintStream printStream;
@@ -22,9 +23,16 @@ public class GrepFileVisitor extends SimpleFileVisitor<Path> {
         try (LineNumberReader reader = new LineNumberReader(Files.newBufferedReader(filePath));) {
             String line;
             boolean notPrinted = true;
-            boolean isRegex = isExpressionRegex(grepExpression);
-            Pattern pat = Pattern.compile(grepExpression);
+            boolean isRegex;
+            Pattern pat = null;
             Matcher mat;
+
+            try {
+                pat = Pattern.compile(grepExpression);
+                isRegex = true;
+            } catch (PatternSyntaxException e) {
+                isRegex = false;
+            }
 
             while ((line = reader.readLine()) != null) {
                 if (isRegex) {
@@ -44,10 +52,5 @@ public class GrepFileVisitor extends SimpleFileVisitor<Path> {
             }
         }
         return FileVisitResult.TERMINATE;
-    }
-
-    private static boolean isExpressionRegex(String grepExpression) {
-        // Get is it a text or regex
-        return grepExpression.charAt(0) == '^' & grepExpression.charAt(grepExpression.length() - 1) == '$';
     }
 }
