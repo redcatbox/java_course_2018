@@ -2,54 +2,54 @@ package home.dbarannik.homeworks.WomeWork_7_Grep;
 
 import home.dbarannik.ConsoleReader.ConsoleReader;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileNotFoundException;
+import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.InvalidPathException;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 
 public class GrepMain {
     public static void main(String[] args) {
+        Path filePath = null;
+        String grepExpression = "";
 
-        try {
-            getInputData();
-        } catch (FileNotFoundException fNF) {
-            System.err.println("FileNotFoundException! Try again...");
-        } catch (InvalidPathException iPE) {
-            System.err.println("InvalidPathException! Try again...");
-        }
-
-        //filePath = "GrepText.txt";
-        //Path file = Paths.get("c:\\javaio\\bio\\test.txt");
-        //BufferedReader bufferedReader = new BufferedReader();
-    }
-
-    static void getInputData() throws FileNotFoundException/*, InvalidPathException*/ {
-        ConsoleReader reader = new ConsoleReader();
-        Path path = null;
-        String filePath;
-        String stringToGrep;
-
-        // Valid paths:
-        // C:\Users\dbarannik\IdeaProjects\java_course_2018\src\main\java\home\dbarannik\homeworks\WomeWork_7_Grep\GrepTest.txt
+        // Get file path
         // src\main\java\home\dbarannik\homeworks\WomeWork_7_Grep\GrepTest.txt
-        System.out.println("Specify file path:");
-        filePath = reader.getInputString();
-        path = Paths.get(filePath);
+        ConsoleReader consoleReader = new ConsoleReader();
+        GrepReader grepReader = new GrepReader(consoleReader);
 
-        if (Files.notExists(path)) {
-            throw new FileNotFoundException();
+        while (true) {
+            System.out.println("Specify file path:");
+            try {
+                filePath = grepReader.getFilePath();
+                System.out.flush();
+                break;
+            } catch (InvalidPathException e) {
+                System.err.println("Invalid path! Try again...");
+                System.err.flush();
+            } catch (FileNotFoundException e) {
+                System.err.println("File not found! Try again...");
+                System.err.flush();
+            }
         }
 
-        System.out.println("Specify text or regular expression to find:");
-        stringToGrep = reader.getInputString();
+        // Get grep expression
+        // regex - don’t, You’ve // "^[a-zA-Z]+'[a-zA-Z]+$" // not working :(
+        while (true) {
+            System.out.println("Specify text or regular expression to grep:");
+            try {
+                grepExpression = grepReader.getGrepExpression();
+                break;
+            } catch (Exception e) {
+                System.err.println("Invalid expression! Try again...");
+            }
+        }
 
-        //makeGrep();
-    }
-
-    static void makeGrep(File file, String stringToGrep) {
-
+        // Read file and grep
+        GrepFileVisitor grepFileVisitor = new GrepFileVisitor(System.out);
+        try {
+            grepFileVisitor.visitFile(filePath, grepExpression);
+        } catch (IOException e) {
+            System.err.println("Error reading file!");
+        }
     }
 }
