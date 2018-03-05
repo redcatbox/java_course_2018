@@ -11,15 +11,14 @@ public class CmdMain {
 
         try {
             // Show help info
-            cmdOperationManager.makeCmdOperationFor("help", "");
+            cmdOperationManager.processCmdOperationFor("help", "");
             // Show current dir
-            cmdOperationManager.makeCmdOperationFor("cp", "");
+            cmdOperationManager.processCmdOperationFor("cp", "");
         } catch (UnsupportedCmdOperation e) {
             System.err.println("Unsupported operation: " + e.getOperation());
         }
 
         while (true) {
-//            inputString = ""; //reset
             try {
                 inputString = consoleReader.getInputString();
                 cmdOperationManager.processInputString(inputString);

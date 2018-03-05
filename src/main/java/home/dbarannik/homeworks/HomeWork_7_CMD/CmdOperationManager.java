@@ -3,48 +3,43 @@ package home.dbarannik.homeworks.HomeWork_7_CMD;
 import home.dbarannik.Exceptions.UnsupportedCmdOperation;
 import home.dbarannik.homeworks.HomeWork_7_CMD.CmdOperations.*;
 
-import java.util.regex.Pattern;
-
 public class CmdOperationManager {
-    final static Pattern REGEX_CHDIR = Pattern.compile("^[a-zA-Z0-9\\-?\\_?]+(\\@)[a-zA-Z]+(\\.)[a-zA-Z]+$");
-    private CmdPathManager cmdPathManager = new CmdPathManager();
-    private CmdOperation cmdOperation;
+    private CmdPathManager cmdPathManager = new CmdPathManager(this);
 
     public void processInputString(String inputString) throws UnsupportedCmdOperation {
-        String inputStringTrimmed;
-        inputStringTrimmed = inputString.trim();
-        if (inputString.isEmpty()) {
+        String inputStringTrimmed = inputString.trim();
+        if (inputStringTrimmed.isEmpty()) {
             throw new UnsupportedCmdOperation(inputString);
         }
 
-        String[] arguments = inputString.split(" ");
+        String[] arguments = inputStringTrimmed.split(" ");
         if (arguments.length > 2) {
             throw new UnsupportedCmdOperation(inputString);
         } else if (arguments.length == 2) {
-            makeCmdOperationFor(arguments[0], arguments[1]);
+            processCmdOperationFor(arguments[0], arguments[1]);
         } else {
-            makeCmdOperationFor(arguments[0], "");
+            processCmdOperationFor(arguments[0], "");
         }
     }
 
-    public void makeCmdOperationFor(String operation, String arguments) throws UnsupportedCmdOperation{
-        cmdOperation = getCmdOperationFor(operation, arguments);
+    public void processCmdOperationFor(String operation, String params) throws UnsupportedCmdOperation{
+        CmdOperation cmdOperation = getCmdOperationFor(operation, params);
         if (cmdOperation != null) {
-            cmdOperation.makeOperation();
+            cmdOperation.makeOperation(params);
         } else {
             throw new UnsupportedCmdOperation(operation);
         }
     }
 
-    public CmdOperation getCmdOperationFor(String operation, String arguments) {
+    private CmdOperation getCmdOperationFor(String operation, String params) {
         if ("help".equals(operation)) {
             return new ShowHelpInfoOperation();
         } else if ("chdir".equals(operation)) {
-            return new ChangeDirOperation(arguments);
+            return new ChangeDirOperation(cmdPathManager, params);
         } else if ("cp".equals(operation)) {
-            return new ShowCurrentPathOperation();
+            return new ShowCurrentPathOperation(cmdPathManager);
         } else if ("ls".equals(operation)) {
-            return new ListOperation();
+            return new ListOperation(cmdPathManager);
         } else if ("exit".equals(operation)) {
             return new ExitAppOperation();
         }
