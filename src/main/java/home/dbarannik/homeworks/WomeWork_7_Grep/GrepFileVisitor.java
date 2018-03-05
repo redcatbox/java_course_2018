@@ -11,7 +11,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.regex.PatternSyntaxException;
 
-public class GrepFileVisitor extends SimpleFileVisitor<Path> {
+public class GrepFileVisitor extends SimpleFileVisitor {
     private final PrintStream printStream;
 
 
@@ -19,7 +19,7 @@ public class GrepFileVisitor extends SimpleFileVisitor<Path> {
         this.printStream = printStream;
     }
 
-    public FileVisitResult visitFile(Path filePath, String grepExpression) throws IOException {
+    public void visitFile(Path filePath, String grepExpression) throws IOException {
         try (LineNumberReader reader = new LineNumberReader(Files.newBufferedReader(filePath));) {
             String line;
             boolean notPrinted = true;
@@ -51,6 +51,5 @@ public class GrepFileVisitor extends SimpleFileVisitor<Path> {
                 }
             }
         }
-        return FileVisitResult.TERMINATE;
     }
 }
