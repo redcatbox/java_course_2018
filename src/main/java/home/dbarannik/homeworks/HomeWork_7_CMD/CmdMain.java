@@ -3,28 +3,71 @@ package home.dbarannik.homeworks.HomeWork_7_CMD;
 import home.dbarannik.ConsoleReader.ConsoleReader;
 
 import java.nio.file.InvalidPathException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.security.InvalidParameterException;
 
 public class CmdMain {
     static final ConsoleReader consoleReader = new ConsoleReader();
-
+    static String inputString;
 
     public static void main(String[] args) {
-        // Show info
-        System.out.println("/? - to show help");
-        System.out.println("chdir path\\to\\go - to change dir");
-        System.out.println("chdir .. - go to one level up");
-        System.out.println("ls - list files in dir");
-        System.out.println("exit - to exit app");
+        showHelpInfo(); // Show help info
+        showInitialPath(); // Show initial path
 
         while (true) {
-            parseInputString(consoleReader.getInputString());
+            inputString = ""; //reset
+            try {
+                inputString = consoleReader.getInputString();
+                processInputString(inputString);
+            } catch (UnsupportedOperationException e) {
+                System.err.println("Unsupported operation!");
+            }
         }
     }
 
-    static void parseInputString(String inputString) throws InvalidPathException, UnsupportedOperationException {
+    static void processInputString(String inputString) throws Exception {
+        parseInputString(inputString);
+    }
+
+    static CmdOperation parseInputString(String inputString) throws InvalidPathException, UnsupportedOperationException, InvalidParameterException {
+        String operator = "";
+//        String[] arguments = inputString.split("\\");
+        if (inputString == "") {
+            throw new InvalidParameterException();
+        }
+
         if (false) {
             throw new UnsupportedOperationException();
         }
+
+        if ("/?".equals(operator)) {
+            return new ShowHelpInfoOperation();
+        } else if ("chdir".equals(operator)) {
+            return new ChangeDirOperation();
+        } else if ("ls".equals(operator)) {
+            return new ListOperation();
+        } else if ("exit".equals(operator)) {
+            return new ExitOperation();
+        }
+        return null;
+    }
+
+    static void showInitialPath() {
+        Path initialPath = Paths.get(System.getProperty("user.dir"));
+        System.out.println("You here:");
+        System.out.println(initialPath);
+        System.out.println();
+    }
+
+    static void showHelpInfo() {
+        System.out.println("Help info:");
+        System.out.println("/?\t\t\t\t\tshow this help info");
+        System.out.println("chdir path\\to\\go\tchange dir");
+        System.out.println("chdir ..\t\t\tgo one level up");
+        System.out.println("ls\t\t\t\t\tlist files in dir");
+        System.out.println("exit\t\t\t\texit app");
+        System.out.println();
     }
 }
 /*
