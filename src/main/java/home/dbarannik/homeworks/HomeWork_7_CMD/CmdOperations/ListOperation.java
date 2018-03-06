@@ -16,10 +16,14 @@ public class ListOperation implements CmdOperation {
         File[] filesList = dir.listFiles();
 
         for (int i = 0; i < filesList.length; i++) {
+            if (filesList[i].isDirectory()) {
+                System.out.println("Dir\t\t" + filesList[i].getName());
+            }
+        }
+
+        for (int i = 0; i < filesList.length; i++) {
             if (filesList[i].isFile()) {
-                System.out.println("File\t\t" + filesList[i].getName());
-            } else if (filesList[i].isDirectory()) {
-                System.out.println("Directory\t" + filesList[i].getName());
+                System.out.println("File\t" + filesList[i].getName());
             }
         }
     }

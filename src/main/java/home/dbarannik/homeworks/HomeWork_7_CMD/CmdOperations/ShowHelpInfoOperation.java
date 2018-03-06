@@ -6,7 +6,6 @@ public class ShowHelpInfoOperation implements CmdOperation {
     public void makeOperation(String params) {
         System.out.println("Help info:");
         System.out.println("help\t\t\t\tshow this help info");
-        System.out.println("cp\t\t\t\t\tshow current path");
         System.out.println("chdir path\\to\\go\tchange dir");
         System.out.println("chdir ..\t\t\tgo one level up");
         System.out.println("ls\t\t\t\t\tlist files in dir");

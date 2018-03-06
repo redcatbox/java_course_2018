@@ -12,11 +12,11 @@ public class CmdMain {
         try {
             // Show help info
             cmdOperationManager.processCmdOperationFor("help", "");
-            // Show current dir
-            cmdOperationManager.processCmdOperationFor("cp", "");
         } catch (UnsupportedCmdOperation e) {
             System.err.println("Unsupported operation: " + e.getOperation());
         }
+        // Show current dir
+        System.out.println(cmdOperationManager.cmdPathManager.getCurrentPath());
 
         while (true) {
             try {

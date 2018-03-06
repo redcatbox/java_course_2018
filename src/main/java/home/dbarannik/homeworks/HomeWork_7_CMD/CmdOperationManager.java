@@ -4,7 +4,7 @@ import home.dbarannik.Exceptions.UnsupportedCmdOperation;
 import home.dbarannik.homeworks.HomeWork_7_CMD.CmdOperations.*;
 
 public class CmdOperationManager {
-    private CmdPathManager cmdPathManager = new CmdPathManager(this);
+    protected CmdPathManager cmdPathManager = new CmdPathManager();
 
     public void processInputString(String inputString) throws UnsupportedCmdOperation {
         String inputStringTrimmed = inputString.trim();
@@ -20,6 +20,8 @@ public class CmdOperationManager {
         } else {
             processCmdOperationFor(arguments[0], "");
         }
+        System.out.println();
+        System.out.println(cmdPathManager.getCurrentPath().toString());
     }
 
     public void processCmdOperationFor(String operation, String params) throws UnsupportedCmdOperation{
@@ -36,8 +38,6 @@ public class CmdOperationManager {
             return new ShowHelpInfoOperation();
         } else if ("chdir".equals(operation)) {
             return new ChangeDirOperation(cmdPathManager, params);
-        } else if ("cp".equals(operation)) {
-            return new ShowCurrentPathOperation(cmdPathManager);
         } else if ("ls".equals(operation)) {
             return new ListOperation(cmdPathManager);
         } else if ("exit".equals(operation)) {

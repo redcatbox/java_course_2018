@@ -2,36 +2,32 @@ package home.dbarannik.homeworks.HomeWork_7_CMD;
 
 import home.dbarannik.Exceptions.UnsupportedCmdOperation;
 
-import java.io.FileNotFoundException;
+import java.io.File;
 import java.nio.file.Files;
+import java.nio.file.InvalidPathException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
 public class CmdPathManager {
     private Path currentPath;
-    private CmdOperationManager cmdOperationManager;
 
-    public CmdPathManager(CmdOperationManager cmdOperationManager) {
+    public CmdPathManager() {
         currentPath = Paths.get(System.getProperty("user.dir")); // Initial path
-        this.cmdOperationManager = cmdOperationManager;
     }
 
-    public void setCurrentPath(Path newCurrentPath) throws FileNotFoundException {
+    public boolean setCurrentPath(Path newCurrentPath) throws InvalidPathException, UnsupportedCmdOperation {
+        File file = new File(newCurrentPath.toString());
         if (Files.notExists(newCurrentPath)) {
-            throw new FileNotFoundException();
+            throw new InvalidPathException("", "");
+        } else if (file.isFile()) {
+            throw new UnsupportedCmdOperation(newCurrentPath.toString());
         }
         currentPath = newCurrentPath;
-
-        // Show current dir
-        try {
-            cmdOperationManager.processCmdOperationFor("cp", "");
-        } catch (UnsupportedCmdOperation e) {
-            System.err.println("Unsupported operation: " + e.getOperation());
-        }
+        return true;
     }
 
-    public void oneLevelUp() {
-
+    public void toParentDir() {
+        currentPath = currentPath.getParent();
     }
 
     public Path getCurrentPath() {
