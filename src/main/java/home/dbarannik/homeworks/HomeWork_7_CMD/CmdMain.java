@@ -14,6 +14,7 @@ public class CmdMain {
             cmdOperationManager.processCmdOperationFor("help", "");
         } catch (UnsupportedCmdOperation e) {
             System.err.println("Unsupported operation: " + e.getOperation());
+            System.out.println(cmdOperationManager.cmdPathManager.getCurrentPath());
         }
         // Show current dir
         System.out.println(cmdOperationManager.cmdPathManager.getCurrentPath());
@@ -24,6 +25,10 @@ public class CmdMain {
                 cmdOperationManager.processInputString(inputString);
             } catch (UnsupportedCmdOperation e) {
                 System.err.println("Unsupported operation: " + e.getOperation());
+                System.out.println(cmdOperationManager.cmdPathManager.getCurrentPath());
+            } catch (NullPointerException e) {
+                System.err.println("Unsupported operation!");
+                System.out.println(cmdOperationManager.cmdPathManager.getCurrentPath());
             }
         }
     }

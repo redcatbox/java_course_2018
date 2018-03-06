@@ -19,30 +19,41 @@ public class ChangeDirOperation implements CmdOperation {
 
     @Override
     public void makeOperation(String params) {
-        // to Parent Dir
-        if (params.equals("..")) {
-            cmdPathManager.toParentDir();
-        }
-
-        StringBuilder sb = new StringBuilder(params);
-        // Remove unnecessary '\'
-        if (params.charAt(0) == '\\') {
-            sb.deleteCharAt(0);
-            params = sb.toString();
-        } else if ((params.length() - 1) == '\\') {
-            sb.deleteCharAt(sb.length() - 1);
-            params = sb.toString();
-        }
-
-        try {
-            if(cmdPathManager.setCurrentPath(Paths.get((cmdPathManager.getCurrentPath().toString() + '\\' + params)))) {
-            } else {
-                cmdPathManager.setCurrentPath(Paths.get(params));
+        while (true) {
+            // to Parent Dir
+            if (params.equals("..")) {
+                    cmdPathManager.toParentDir();
+                    break;
             }
-        } catch (InvalidPathException e) {
-            System.out.println("Invalid path!");
-        } catch (UnsupportedCmdOperation e) {
-            System.err.println("Unsupported operation: " + e.getOperation());
+
+            String paramsCorrected = "";
+            StringBuilder sb = new StringBuilder(params);
+            // Remove unnecessary '\'
+            if (sb.charAt(0) == '\\') {
+                sb.deleteCharAt(0);
+                paramsCorrected = sb.toString();
+            } else if ((sb.length() - 1) == '\\') {
+                sb.deleteCharAt(sb.length() - 1);
+                paramsCorrected = sb.toString();
+            }
+
+            try {
+                cmdPathManager.setCurrentPath(Paths.get(params));
+                break;
+            } catch (InvalidPathException e) {
+                System.out.println("Invalid path!");
+            } catch (UnsupportedCmdOperation e) {
+                System.err.println("Unsupported operation: " + e.getOperation());
+            }
+
+            try {
+                cmdPathManager.setCurrentPath(Paths.get((cmdPathManager.getCurrentPath().toString() + '\\' + paramsCorrected)));
+                break;
+            } catch (InvalidPathException e) {
+                System.out.println("Invalid path!");
+            } catch (UnsupportedCmdOperation e) {
+                System.err.println("Unsupported operation: " + e.getOperation());
+            }
         }
     }
 }

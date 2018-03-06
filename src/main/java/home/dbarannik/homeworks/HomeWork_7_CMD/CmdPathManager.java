@@ -10,12 +10,14 @@ import java.nio.file.Paths;
 
 public class CmdPathManager {
     private Path currentPath;
+    private Path currentRoot;
 
     public CmdPathManager() {
         currentPath = Paths.get(System.getProperty("user.dir")); // Initial path
+        currentRoot = currentPath.getRoot();
     }
 
-    public boolean setCurrentPath(Path newCurrentPath) throws InvalidPathException, UnsupportedCmdOperation {
+    public void setCurrentPath(Path newCurrentPath) throws InvalidPathException, UnsupportedCmdOperation {
         File file = new File(newCurrentPath.toString());
         if (Files.notExists(newCurrentPath)) {
             throw new InvalidPathException("", "");
@@ -23,15 +25,21 @@ public class CmdPathManager {
             throw new UnsupportedCmdOperation(newCurrentPath.toString());
         }
         currentPath = newCurrentPath;
-        return true;
+        currentRoot = currentPath.getRoot();
     }
 
     public void toParentDir() {
         currentPath = currentPath.getParent();
+        if (currentPath == null) {
+            currentPath = currentRoot;
+        }
     }
 
     public Path getCurrentPath() {
         return currentPath;
     }
 
+    public Path getCurrentRoot() {
+        return currentRoot;
+    }
 }
