@@ -8,26 +8,31 @@ public class CmdOperationManager {
 
     public void processInputString(String inputString) throws UnsupportedCmdOperation {
         String inputStringTrimmed = inputString.trim();
-        if (inputStringTrimmed.isEmpty()) {
-            throw new UnsupportedCmdOperation(inputString);
+
+        if (!inputStringTrimmed.isEmpty()) {
+            String[] arguments = inputStringTrimmed.split(" ");
+
+            if (arguments.length > 2) {
+                throw new UnsupportedCmdOperation(inputString);
+            } else if (arguments.length == 2) {
+                processCmdOperationFor(arguments[0], arguments[1]);
+            } else {
+                processCmdOperationFor(arguments[0], "");
+            }
         }
 
-        String[] arguments = inputStringTrimmed.split(" ");
-        if (arguments.length > 2) {
-            throw new UnsupportedCmdOperation(inputString);
-        } else if (arguments.length == 2) {
-            processCmdOperationFor(arguments[0], arguments[1]);
-        } else {
-            processCmdOperationFor(arguments[0], "");
-        }
-        System.out.println();
         System.out.println(cmdPathManager.getCurrentPath().toString());
     }
 
-    public void processCmdOperationFor(String operation, String params) throws UnsupportedCmdOperation{
+    public void processCmdOperationFor(String operation, String params) throws UnsupportedCmdOperation {
         CmdOperation cmdOperation = getCmdOperationFor(operation, params);
+
         if (cmdOperation != null) {
-            cmdOperation.makeOperation(params);
+            try {
+                cmdOperation.makeOperation(params);
+            } catch (UnsupportedCmdOperation e) {
+                System.err.println(e.getOperation());
+            }
         } else {
             throw new UnsupportedCmdOperation(operation);
         }
