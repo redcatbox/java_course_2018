@@ -2,34 +2,106 @@ package home.dbarannik.homeworks.HomeWork_7_CMD;
 
 import home.dbarannik.ConsoleReader.ConsoleReader;
 import home.dbarannik.Exceptions.UnsupportedCmdOperation;
+import home.dbarannik.homeworks.HomeWork_7_CMD.CmdOperations.*;
+
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 public class CmdMain {
+    static private Path currentPath = Paths.get("").toAbsolutePath();
+    static private Path currentRoot = currentPath.getRoot();
+
+    public static Path getCurrentPath() {
+        return currentPath;
+    }
+
+    public static void setCurrentPath(Path currentPath) {
+        CmdMain.currentPath = currentPath;
+        setCurrentRoot(currentPath.getRoot());
+    }
+
+    public static Path getCurrentRoot() {
+        return currentRoot;
+    }
+
+    private static void setCurrentRoot(Path currentRoot) {
+        CmdMain.currentRoot = currentRoot;
+    }
+
+    static void processInputString(String inputString) throws UnsupportedCmdOperation {
+        String inputStringTrimmed = inputString.trim();
+
+        if (!inputStringTrimmed.isEmpty()) {
+            String[] arguments = inputStringTrimmed.split(" ");
+
+            if (arguments.length > 2) {
+                throw new UnsupportedCmdOperation(inputString);
+            } else if (arguments.length == 2) {
+                processCmdOperationFor(arguments[0], arguments[1]);
+            } else if (arguments.length == 1) {
+                processCmdOperationFor(arguments[0]);
+            }
+        }
+    }
+
+    static void processCmdOperationFor(String ... params) throws UnsupportedCmdOperation {
+        CmdOperation cmdOperation = getCmdOperationFor(params);
+
+        if (cmdOperation != null) {
+            try {
+                cmdOperation.makeOperation(params);
+            } catch (UnsupportedCmdOperation e) {
+                System.err.println(e.getOperation());
+            }
+        } else {
+            throw new UnsupportedCmdOperation(params[0]);
+        }
+    }
+
+    static CmdOperation getCmdOperationFor(String ... params) {
+        if ("help".equals(params[0])) {
+            return new ShowHelpInfoOperation();
+        } else if ("chdir".equals(params[0])) {
+            return new ChangeDirOperation();
+        } else if ("ls".equals(params[0])) {
+            return new ListOperation();
+        } else if ("exit".equals(params[0])) {
+            return new ExitAppOperation();
+        }
+        return null;
+    }
+
     public static void main(String[] args) {
         ConsoleReader consoleReader = new ConsoleReader();
         String inputString;
-        CmdOperationManager cmdOperationManager = new CmdOperationManager();
 
         try {
             // Show help info
-            cmdOperationManager.processCmdOperationFor("help", "");
+            processCmdOperationFor("help");
         } catch (UnsupportedCmdOperation e) {
-            System.out.println(cmdOperationManager.cmdPathManager.getCurrentPath());
+            System.out.println();
+            System.out.println(getCurrentPath());
         }
-
         // Show current dir
-        System.out.println(cmdOperationManager.cmdPathManager.getCurrentPath());
+        System.out.println();
+        System.out.println(getCurrentPath());
 
         while (true) {
             try {
                 inputString = consoleReader.getInputString();
-                cmdOperationManager.processInputString(inputString);
+                processInputString(inputString);
+                System.out.println();
+                System.out.println(getCurrentPath());
             } catch (UnsupportedCmdOperation e) {
                 System.err.println("Unsupported operation: " + e.getOperation());
-                System.out.println(cmdOperationManager.cmdPathManager.getCurrentPath());
+                System.out.println();
+                System.out.println(getCurrentPath());
             }
         }
     }
+
 }
+
 /*
 Разработать программу, аналог командной строки.
 Программа должна поддерживать две команды:

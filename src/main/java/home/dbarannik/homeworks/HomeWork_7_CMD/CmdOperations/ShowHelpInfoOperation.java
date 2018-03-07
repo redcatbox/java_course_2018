@@ -3,7 +3,7 @@ package home.dbarannik.homeworks.HomeWork_7_CMD.CmdOperations;
 public class ShowHelpInfoOperation implements CmdOperation {
 
     @Override
-    public void makeOperation(String params) {
+    public void makeOperation(String ... params) {
         System.out.println("Help info:");
         System.out.println("help\t\t\t\tshow this help info");
         System.out.println("chdir path\\to\\go\tchange dir");

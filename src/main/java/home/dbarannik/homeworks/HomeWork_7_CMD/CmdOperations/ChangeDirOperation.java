@@ -1,50 +1,42 @@
 package home.dbarannik.homeworks.HomeWork_7_CMD.CmdOperations;
 
 import home.dbarannik.Exceptions.UnsupportedCmdOperation;
-import home.dbarannik.homeworks.HomeWork_7_CMD.CmdPathManager;
+import home.dbarannik.homeworks.HomeWork_7_CMD.CmdMain;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.nio.file.InvalidPathException;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 
 public class ChangeDirOperation implements CmdOperation {
-    CmdPathManager cmdPathManager;
-    private String params;
     StringBuilder sb;
 
-    public ChangeDirOperation(CmdPathManager cmdPathManager, String params) {
-        this.cmdPathManager = cmdPathManager;
-        this.params = params;
-    }
-
     @Override
-    public void makeOperation(String params) throws UnsupportedCmdOperation {
+    public void makeOperation(String ... params) throws UnsupportedCmdOperation {
         String paramsCorrected = "";
-        paramsCorrected = params.toLowerCase();
-        sb = new StringBuilder(params);
+        paramsCorrected = params[1].toLowerCase();
+        sb = new StringBuilder(params[1]);
 
-        // Remove unnecessary '\'
+        CmdMain.getCurrentPath().
+        // Remove first unnecessary '\'
         if (sb.charAt(0) == '\\') {
             sb.deleteCharAt(0);
             paramsCorrected = sb.toString();
         }
-
+        // Remove last unnecessary '\'
         if ((sb.charAt(sb.length() - 1)) == '\\') {
             sb.deleteCharAt(sb.length() - 1);
             paramsCorrected = sb.toString();
         }
 
-        if (params.equals("..")) {
-            cmdPathManager.toParentDir();
+        if (paramsCorrected.equals("..")) {
+            CmdMain.setCurrentPath(CmdMain.getCurrentPath().getParent());
         } else {
+
             File path = new File(paramsCorrected);
             if (path.isFile()) {
                 throw new UnsupportedCmdOperation(params + " is file! Specify directory instead.");
             } else {
-                // Check if current dir contains "paramsCorrected"
-                path = new File(cmdPathManager.getCurrentPath().toString());
+                // Check if current dir contains given parameter
                 File[] filesList = path.listFiles();
 
                 try {
@@ -57,7 +49,7 @@ public class ChangeDirOperation implements CmdOperation {
                             throw new UnsupportedCmdOperation(params + " is file! Specify directory instead.");
                         }
                     }
-                    cmdPathManager.setCurrentPath(Paths.get(paramsCorrected));
+//                    cmdPathManager.setCurrentPath(Paths.get(paramsCorrected));
                 } catch (InvalidPathException e) {
                     System.out.println("Invalid path!");
                 } catch (UnsupportedCmdOperation e) {

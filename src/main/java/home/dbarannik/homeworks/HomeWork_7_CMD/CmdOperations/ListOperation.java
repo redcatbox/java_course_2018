@@ -1,30 +1,32 @@
 package home.dbarannik.homeworks.HomeWork_7_CMD.CmdOperations;
 
-import home.dbarannik.homeworks.HomeWork_7_CMD.CmdPathManager;
+import home.dbarannik.homeworks.HomeWork_7_CMD.CmdMain;
 
-import java.io.File;
+import java.io.IOException;
+import java.nio.file.*;
 
 public class ListOperation implements CmdOperation {
-    CmdPathManager cmdPathManager;
-    public ListOperation(CmdPathManager cmdPathManager) {
-        this.cmdPathManager = cmdPathManager;
-    }
 
     @Override
-    public void makeOperation(String params) {
-        File dir = new File(cmdPathManager.getCurrentPath().toString());
-        File[] filesList = dir.listFiles();
-
-        for (int i = 0; i < filesList.length; i++) {
-            if (filesList[i].isDirectory()) {
-                System.out.println("Dir\t\t" + filesList[i].getName());
+    public void makeOperation(String ... params) {
+        try (DirectoryStream<Path> ds = Files.newDirectoryStream(Paths.get(CmdMain.getCurrentPath().toString()))) {
+            for (Path file : ds) {
+                if (file.toFile().isDirectory()) {
+                    System.out.println("Directory\t" + file.getFileName());
+                }
             }
+        } catch (IOException | DirectoryIteratorException e) {
+            System.err.println(e);
         }
 
-        for (int i = 0; i < filesList.length; i++) {
-            if (filesList[i].isFile()) {
-                System.out.println("File\t" + filesList[i].getName());
+        try (DirectoryStream<Path> ds = Files.newDirectoryStream(Paths.get(CmdMain.getCurrentPath().toString()))) {
+            for (Path file : ds) {
+                if (file.toFile().isFile()) {
+                    System.out.println("File\t\t" + file.getFileName());
+                }
             }
+        } catch (IOException | DirectoryIteratorException e) {
+            System.err.println(e);
         }
     }
 }
