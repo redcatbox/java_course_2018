@@ -1,107 +1,82 @@
 package home.dbarannik.homeworks.HomeWork_9;
 
-import java.io.BufferedWriter;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.nio.file.StandardOpenOption;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.util.Date;
-import java.util.GregorianCalendar;
-import java.util.Random;
-import java.util.concurrent.ThreadLocalRandom;
+import home.dbarannik.homeworks.HomeWork_9.EmployeesListOperations.ELOCountWemen;
+import home.dbarannik.homeworks.HomeWork_9.EmployeesListOperations.EmployeesListOperation;
+
+import java.util.List;
 
 public class EmployeesMain {
     public static void main(String[] args) {
-        generateEmployeesFile(100);
+        // Generate file
+        EmployeesFileGenerator efg = new EmployeesFileGenerator();
+        efg.generateEmployeesFile(1000);
 
-    }
+        // Read file
+        EmployeesFileReader efr = new EmployeesFileReader(efg.getFilePath(), efg.separator);
+        List<Employee> employeesList = efr.readEmployeesFile();
 
-    static void generateEmployeesFile(int num) {
-        final String[] surnames = {"Zayac", "Volk", "Barsuk", "Orel", "Belka", "Mysh", "Homyak", "Zmey", "Ryba", "Voron", "Soroka", "Koshka", "Gus", "Sinica", "Medved", "Suslik"};
-        final String[] namesM = {"Nikolay", "Andrey", "Viktor", "Evgeniy", "Maksim", "Yuriy", "Dmitriy", "Igor", "Aleksandr", "Aleksey", "Lev", "Vladislav", "Vladimir", "Oleg", "Mikhail"};
-        final String[] namesF = {"Elizabeth", "Anna", "Maria", "Julia", "Svetlana", "Elena", "Tamara", "Yana", "Nina", "Natali", "Daria", "Viktoria", "Ekaterina", "Veronika", "Anastasia"};
-        final String middleNameM = "Batkovich";
-        final String middleNameF = "Batkovna";
-
-        // Create file
-        Path filePath = Paths.get("").toAbsolutePath();
-        filePath = filePath.resolve("EmployeesFile");
-        if (filePath.toFile().exists()) {
-            filePath.toFile().delete();
-        }
-
-        try {
-            Files.createFile(filePath);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        // Generate random employees
-        for (int i = 0; i < num; i++) {
-            Random random = new Random();
-
-            // sex
-            Sex rndSex = null;
-            switch (random.nextInt(2)) {
-                case 0:
-                    rndSex = Sex.MALE;
-                    break;
-                case 1:
-                    rndSex = Sex.FEMALE;
-                    break;
-            }
-
-            //lastName, firstName, middleName
-            String rndLastName = surnames[random.nextInt(surnames.length)];
-            String rndFirstName;
-            String rndMiddleName;
-            if (rndSex == Sex.MALE) {
-                rndFirstName = namesM[random.nextInt(namesM.length)];
-                rndMiddleName = middleNameM;
-            } else {
-                rndFirstName = namesF[random.nextInt(namesF.length)];
-                rndMiddleName = middleNameF;
-            }
-
-            // birthDate, startDate, endDate
-//            GregorianCalendar gc = new GregorianCalendar();
-//            int year = random.nextInt(50) + 1940;
-//            gc.set(gc.YEAR, year);
-//            int day = random.nextInt(gc.getActualMaximum(gc.DAY_OF_YEAR) + 1);
-//            gc.set(gc.DAY_OF_YEAR, day);
-
-
-            long  = -631152000000L + (Math.abs(random.nextLong()) % (40L * 31536000000L)); // 1950 - 1990
-            LocalDate rndBirthDate = new LocalDate(rndBirthDateMs);
-            LocalDateTime rndBirthDate = LocalDateTime.now();
-            Date  = new Date(rndBirthDateMs);
-
-            long rndStartDateMs = 946684800000L + (Math.abs(random.nextLong()) % (17L * 31536000000L)); // 2000 - 2017
-            Date rndStartDate = new Date(rndStartDateMs);
-
-            long rndEndDateMs = rndStartDateMs +;
-
-            Date rndEndDate = new Date(rndEndDateMs);
-            if (rndEndDate.after(LocalDateTime.now()))
-
-            // INN
-            int rndINN = random.nextInt(2000000000 - 1000000000) + 1000000000;
-
-            // Salary
-            int rndSalary = random.nextInt(25000 - 5000) + 5000;
-
-            // Write to file
-            String str = rndLastName + "," + rndFirstName + "," + rndMiddleName + "," + rndBirthDate + "," + rndINN + "," + rndSex + "," + rndStartDate + "," + rndEndDate + "," + rndSalary + "\n";
-            try {
-                Files.write(filePath, str.getBytes(), StandardOpenOption.APPEND);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
+        // Filter employees list
+        EmployeesListOperation operation;
+        // 1
+        operation = new ELOCountWemen();
+        operation.makeOperation(employeesList);
+        // 2
+        operation = new ELOCountWemen();
+        operation.makeOperation(employeesList);
+        // 3
+        operation = new ELOCountWemen();
+        operation.makeOperation(employeesList);
+        // 4
+        operation = new ELOCountWemen();
+        operation.makeOperation(employeesList);
+        // 5
+        operation = new ELOCountWemen();
+        operation.makeOperation(employeesList);
+        // 6
+        operation = new ELOCountWemen();
+        operation.makeOperation(employeesList);
+        // 7
+        operation = new ELOCountWemen();
+        operation.makeOperation(employeesList);
+        // 8
+        operation = new ELOCountWemen();
+        operation.makeOperation(employeesList);
+        // 9
+        operation = new ELOCountWemen();
+        operation.makeOperation(employeesList);
+        // 10
+        operation = new ELOCountWemen();
+        operation.makeOperation(employeesList);
+        // 11
+        operation = new ELOCountWemen();
+        operation.makeOperation(employeesList);
     }
 }
 
+/*
+Спроектировать класс Сотрудник (Employee) с обязательными полями:
+a. Фамилия
+b. Имя
+c. Отчество
+d. Дата рождения
+e. ИНН
+f. Пол (перечисление MALE, FEMALE)
+g. Дата принятия
+h. Дата увольнения (содержит null если сотрудник еще работает)
+i. Сумма оклада
+Создать файл, в котором будет данная информация о каждом из сотрудников в новой
+строке. Поля разделены точкой с запятой (;).
+Реализовать программу, которая загрузить все эти данные в коллекцию List<Employee> и
+с помощью Java Stream API выведет следующее:
+1. Количество женщин
+2. Количество мужчин с зарплатой больше 10 000
+3. Максимальную зарплату у сотрудников с именем Николай
+4. Минимальную зарплату у сотрудниц с именем Светлана
+5. ФИО всех сотрудников со стажем работы более 10 лет в данной компании
+6. Число уволенных за прошлый год
+7. Проиндексирует сотрудников по ИНН (то есть вернет Map<Long, Employee>)
+8. Средний возраст сотрудников
+9. Среднюю зарплату мужчин
+10. Среднюю зарплату женщин старше 40-ка лет.
+11. Сгруппировать по месяцам рождения всех женщин в возрасте от 30 до 40 лет.
+*/
