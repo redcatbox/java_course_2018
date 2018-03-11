@@ -20,19 +20,28 @@ public class EmployeesFileReader {
     public List<Employee> readEmployeesFile() {
         List<Employee> list = new ArrayList<>();
         try (LineNumberReader reader = new LineNumberReader(Files.newBufferedReader(filePath))) {
-            String line = reader.readLine();
-            String[] params = line.split(separator);
-            list.add(new Employee(
-                    params[0],
-                    params[1],
-                    params[2],
-                    LocalDate.parse(params[3]),
-                    Integer.parseInt(params[4]),
-                    Sex.valueOf(params[5]),
-                    LocalDate.parse(params[6]),
-                    LocalDate.parse(params[7]),
-                    Double.parseDouble(params[8])
-            ));
+            String line;
+
+            while ((line = reader.readLine()) != null) {
+                String[] params = line.split(separator);
+                LocalDate endDate = null;
+
+                if (!params[7].equals("null")) {
+                    endDate = LocalDate.parse(params[7]);
+                }
+
+                list.add(new Employee(
+                        params[0],
+                        params[1],
+                        params[2],
+                        LocalDate.parse(params[3]),
+                        Integer.parseInt(params[4]),
+                        Sex.valueOf(params[5]),
+                        LocalDate.parse(params[6]),
+                        endDate,
+                        Double.parseDouble(params[8])
+                ));
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }

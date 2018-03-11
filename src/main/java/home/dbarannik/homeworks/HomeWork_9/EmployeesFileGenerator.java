@@ -17,6 +17,7 @@ public class EmployeesFileGenerator {
     public Path getFilePath() {
         return filePath;
     }
+
     final String[] surnames = {"Zayac", "Volk", "Barsuk", "Orel", "Belka", "Mysh", "Homyak", "Zmey", "Ryba", "Voron", "Soroka", "Koshka", "Gus", "Sinica", "Medved", "Suslik"};
     final String[] namesM = {"Nikolay", "Andrey", "Viktor", "Evgeniy", "Maksim", "Yuriy", "Dmitriy", "Igor", "Aleksandr", "Aleksey", "Lev", "Vladislav", "Vladimir", "Oleg", "Mikhail"};
     final String[] namesF = {"Elizabeth", "Anna", "Maria", "Julia", "Svetlana", "Elena", "Tamara", "Yana", "Nina", "Natali", "Daria", "Viktoria", "Ekaterina", "Veronika", "Anastasia"};
@@ -81,7 +82,7 @@ public class EmployeesFileGenerator {
             int rndINN = random.nextInt(2000000000 - 1000000000) + 1000000000;
 
             // Salary
-            int rndSalary = (random.nextInt(7) + 1) * 5000;
+            int rndSalary = (random.nextInt(30000) + 5000);
 
             // to file
             String str = rndLastName + separator +
@@ -94,14 +95,14 @@ public class EmployeesFileGenerator {
                     rndEndDate + separator +
                     rndSalary;
 
-            if (i == num - 1) {
+            if (i != num - 1) {
                 str = str + "\n";
+            }
 
-                try {
-                    Files.write(filePath, str.getBytes(), StandardOpenOption.APPEND);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+            try {
+                Files.write(filePath, str.getBytes(), StandardOpenOption.APPEND);
+            } catch (IOException e) {
+                e.printStackTrace();
             }
         }
     }

@@ -1,7 +1,6 @@
 package home.dbarannik.homeworks.HomeWork_9;
 
-import home.dbarannik.homeworks.HomeWork_9.EmployeesListOperations.ELOCountWemen;
-import home.dbarannik.homeworks.HomeWork_9.EmployeesListOperations.EmployeesListOperation;
+import home.dbarannik.homeworks.HomeWork_9.EmployeesListOperations.*;
 
 import java.util.List;
 
@@ -18,38 +17,38 @@ public class EmployeesMain {
         // Filter employees list
         EmployeesListOperation operation;
         // 1
-        operation = new ELOCountWemen();
+        operation = new ELOCountBySex(Sex.FEMALE);
         operation.makeOperation(employeesList);
         // 2
-        operation = new ELOCountWemen();
+        operation = new ELOCountBySexSalary(Sex.MALE, 10000);
         operation.makeOperation(employeesList);
         // 3
-        operation = new ELOCountWemen();
+        operation = new ELONameMaxSalary("Nikolay");
         operation.makeOperation(employeesList);
         // 4
-        operation = new ELOCountWemen();
+        operation = new ELONameMinSalary("Svetlana");
         operation.makeOperation(employeesList);
-        // 5
-        operation = new ELOCountWemen();
-        operation.makeOperation(employeesList);
-        // 6
-        operation = new ELOCountWemen();
-        operation.makeOperation(employeesList);
-        // 7
-        operation = new ELOCountWemen();
-        operation.makeOperation(employeesList);
-        // 8
-        operation = new ELOCountWemen();
-        operation.makeOperation(employeesList);
-        // 9
-        operation = new ELOCountWemen();
-        operation.makeOperation(employeesList);
-        // 10
-        operation = new ELOCountWemen();
-        operation.makeOperation(employeesList);
-        // 11
-        operation = new ELOCountWemen();
-        operation.makeOperation(employeesList);
+//        // 5
+//        operation = new ELO();
+//        operation.makeOperation(employeesList);
+//        // 6
+//        operation = new ELO();
+//        operation.makeOperation(employeesList);
+//        // 7
+//        operation = new ELO();
+//        operation.makeOperation(employeesList);
+//        // 8
+//        operation = new ELO();
+//        operation.makeOperation(employeesList);
+//        // 9
+//        operation = new ELO();
+//        operation.makeOperation(employeesList);
+//        // 10
+//        operation = new ELO();
+//        operation.makeOperation(employeesList);
+//        // 11
+//        operation = new ELO();
+//        operation.makeOperation(employeesList);
     }
 }
 

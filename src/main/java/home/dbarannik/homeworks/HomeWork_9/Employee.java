@@ -2,7 +2,7 @@ package home.dbarannik.homeworks.HomeWork_9;
 
 import java.time.LocalDate;
 
-public class Employee implements Comparable{
+public class Employee{
     private String lastName;
     private String firstName;
     private String middleName;
@@ -12,6 +12,22 @@ public class Employee implements Comparable{
     private LocalDate startDate;
     private LocalDate endDate;
     private double salary;
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public Sex getSex() {
+        return sex;
+    }
+
+    public double getSalary() {
+        return salary;
+    }
+
+    public String getFullName() {
+        return lastName + " " + firstName + " " + middleName;
+    }
 
     public Employee(
             String lastName,
@@ -33,10 +49,5 @@ public class Employee implements Comparable{
         this.startDate = startDate;
         this.endDate = endDate;
         this.salary = salary;
-    }
-
-    @Override
-    public int compareTo(Object o) {
-        return 0;
     }
 }
