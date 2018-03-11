@@ -22,6 +22,7 @@ public class ELOCountBySexSalary implements EmployeesListOperation {
                 .filter(e->e.getSalary() > salary)
                 .count();
 
-        System.out.printf("%s count with salary > %f = %d%n", sex, salary, count);
+        System.out.printf("%s count with salary > %.2f = %d%n", sex, salary, count);
+        System.out.println();
     }
 }

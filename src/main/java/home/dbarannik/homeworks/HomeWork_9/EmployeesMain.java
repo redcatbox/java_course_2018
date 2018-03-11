@@ -2,6 +2,7 @@ package home.dbarannik.homeworks.HomeWork_9;
 
 import home.dbarannik.homeworks.HomeWork_9.EmployeesListOperations.*;
 
+import java.time.LocalDate;
 import java.util.List;
 
 public class EmployeesMain {
@@ -16,6 +17,7 @@ public class EmployeesMain {
 
         // Filter employees list
         EmployeesListOperation operation;
+        System.out.println();
         // 1
         operation = new ELOCountBySex(Sex.FEMALE);
         operation.makeOperation(employeesList);
@@ -28,27 +30,27 @@ public class EmployeesMain {
         // 4
         operation = new ELONameMinSalary("Svetlana");
         operation.makeOperation(employeesList);
-//        // 5
-//        operation = new ELO();
-//        operation.makeOperation(employeesList);
-//        // 6
-//        operation = new ELO();
-//        operation.makeOperation(employeesList);
-//        // 7
-//        operation = new ELO();
-//        operation.makeOperation(employeesList);
-//        // 8
-//        operation = new ELO();
-//        operation.makeOperation(employeesList);
-//        // 9
-//        operation = new ELO();
-//        operation.makeOperation(employeesList);
-//        // 10
-//        operation = new ELO();
-//        operation.makeOperation(employeesList);
-//        // 11
-//        operation = new ELO();
-//        operation.makeOperation(employeesList);
+        // 5
+        operation = new ELOByExperience(10);
+        operation.makeOperation(employeesList);
+        // 6
+        operation = new ELOFiredByPeriod(LocalDate.parse("2017-01-01"), LocalDate.parse("2017-12-31"));
+        operation.makeOperation(employeesList);
+        // 7
+        operation = new ELOIndexByINN();
+        operation.makeOperation(employeesList);
+        // 8
+        operation = new ELOAvgAge();
+        operation.makeOperation(employeesList);
+        // 9
+        operation = new ELOAvgSalaryBySex(Sex.MALE);
+        operation.makeOperation(employeesList);
+        // 10
+        operation = new ELOAvgSalaryBySexMinAge(Sex.FEMALE, 40);
+        operation.makeOperation(employeesList);
+        // 11
+        operation = new ELOGroupBySexMinMaxAge(Sex.FEMALE, 30, 40);
+        operation.makeOperation(employeesList);
     }
 }
 

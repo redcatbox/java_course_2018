@@ -19,6 +19,8 @@ public class ELONameMinSalary implements EmployeesListOperation {
                 .filter(e -> e.getFirstName().equals(name))
                 .min(Comparator.comparing(Employee::getSalary))
                 .get();
-        System.out.printf("Min %s salary = %f%n", name, min.getSalary());
+
+        System.out.printf("Min %s salary = %.2f%n", name, min.getSalary());
+        System.out.println();
     }
 }

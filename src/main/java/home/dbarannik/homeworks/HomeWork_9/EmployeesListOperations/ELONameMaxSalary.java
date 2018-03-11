@@ -19,6 +19,8 @@ public class ELONameMaxSalary implements EmployeesListOperation {
                 .filter(e -> e.getFirstName().equals(name))
                 .max(Comparator.comparing(Employee::getSalary))
                 .get();
-        System.out.printf("Max %s salary = %f%n", name, max.getSalary());
+
+        System.out.printf("Max %s salary = %.2f%n", name, max.getSalary());
+        System.out.println();
     }
 }

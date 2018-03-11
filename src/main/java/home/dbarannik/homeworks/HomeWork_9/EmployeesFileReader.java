@@ -35,7 +35,7 @@ public class EmployeesFileReader {
                         params[1],
                         params[2],
                         LocalDate.parse(params[3]),
-                        Integer.parseInt(params[4]),
+                        Long.parseLong(params[4]),
                         Sex.valueOf(params[5]),
                         LocalDate.parse(params[6]),
                         endDate,

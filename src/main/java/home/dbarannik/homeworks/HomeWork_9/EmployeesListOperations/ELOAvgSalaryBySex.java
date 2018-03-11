@@ -5,21 +5,23 @@ import home.dbarannik.homeworks.HomeWork_9.Sex;
 
 import java.util.List;
 
-public class ELOCountBySex implements EmployeesListOperation {
+public class ELOAvgSalaryBySex implements EmployeesListOperation {
     private Sex sex;
 
-    public ELOCountBySex(Sex sex) {
+    public ELOAvgSalaryBySex(Sex sex) {
         this.sex = sex;
     }
 
     @Override
     public void makeOperation(List<Employee> list) {
-        long count = list
+        double avg = list
                 .stream()
-                .filter(e->e.getSex() == sex)
-                .count();
+                .filter(e -> e.getSex() == sex)
+                .mapToDouble(Employee::getSalary)
+                .average()
+                .getAsDouble();
 
-        System.out.printf("%s count = %d%n", sex, count);
+        System.out.printf("Average %s salary = %.2f%n", sex, avg);
         System.out.println();
     }
 }
