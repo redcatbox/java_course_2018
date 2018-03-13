@@ -4,38 +4,26 @@ import java.io.IOException;
 import java.io.LineNumberReader;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
+import java.util.*;
 
 public class CountWordsMain {
     public static void main(String[] args) {
-        List<String> allWords = new ArrayList<>();
-        HashSet<String> uniqueWords = new HashSet<>();
+        Map<String, Integer> words = new TreeMap();
 
         try (LineNumberReader reader = new LineNumberReader(Files.newBufferedReader(Paths.get("src\\main\\java\\home\\dbarannik\\homeworks\\HomeWork_8\\CountWordsTest")))) {
             String line;
             while ((line = reader.readLine()) != null) {
                 line = line.toLowerCase();
-                for (String s : line.split("\\s")) {
-                    allWords.add(s);
-                    uniqueWords.add(s);
+
+                for (String str : line.split("\\s")) {
+                    words.computeIfPresent(str, (k, v) -> v+1);
+                    words.putIfAbsent(str, 1);
                 }
             }
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-        int counter = 0;
-        for (String u : uniqueWords) {
-            for (String a : allWords) {
-                if (u.equals(a)) {
-                    counter++;
-                }
-            }
-            System.out.printf("%s = %d%n", u, counter);
-            counter = 0;
-        }
+        System.out.println(words);
     }
 }
 /*
@@ -45,7 +33,3 @@ public class CountWordsMain {
 регистра!).
 java ….SomeClass c:\file.txt
 */
-// C:\Users\Nadin\IdeaProjects\java_course_2018\src\main\java\home\dbarannik\homeworks\HomeWork_8\
-// set path=C:\Program Files\Java\jdk-9.0.1\bin
-// javac CountWordsMain.java
-// java CountWordsMain CountWordsTest
