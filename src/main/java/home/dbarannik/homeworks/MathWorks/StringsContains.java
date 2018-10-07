@@ -2,16 +2,20 @@ package home.dbarannik.homeworks.MathWorks;
 
 public class StringsContains {
     public static void main(String[] args) {
-        int numberOfSigns = 0;
-        for (int i = 0; i <= 50000; i++) {
-            String s = String.valueOf(i);
-            if (s.contains("2")) {
-                numberOfSigns++;
-                System.out.println("Number to replace = " + s);
-            }
-        }
+        int numberOfSigns;
 
-        System.out.println("Total number of signs to replace = " + numberOfSigns);
+        for (int number = 0; number <= 9; number++) {
+            numberOfSigns = 0;
+            for (int i = 0; i <= 50000; i++) {
+                String s = String.valueOf(i);
+                if (s.contains(String.valueOf(number))) {
+                    numberOfSigns++;
+//                    System.out.println("Number with " + number + " to replace = " + s);
+                }
+            }
+
+            System.out.println("Total number of signs with " + number + " to replace = " + numberOfSigns);
+        }
     }
 }
 
