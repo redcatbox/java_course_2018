@@ -1,4 +1,4 @@
-package home.dbarannik.sergey.HW21;
+package home.dbarannik.sergey.HW22;
 
 import java.io.File;
 import java.io.IOException;
@@ -8,30 +8,22 @@ import java.util.Map;
 import java.util.Set;
 import java.util.TreeMap;
 
-import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import home.dbarannik.sergey.HW21.Storage;
+import home.dbarannik.sergey.HW21.User;
 
-public class FileStorage implements Storage {
+public class DatabaseStorage implements Storage {
 
     private Integer startUserId;
     private Integer lastUserId;
     private Map storage;
     private File file;
 
-    public FileStorage(String fileName) {
+    public DatabaseStorage(String fileName) {
         this.startUserId = -1;
         this.lastUserId = startUserId;
         this.storage = new TreeMap();
         this.file = new File("target/" + fileName);
-    }
-
-    private void LoadStorage() {
-        ObjectMapper objectMapper = new ObjectMapper();
-        try {
-            storage = objectMapper.readValue(file, new TypeReference<Map<Integer, String>>() {});
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
     }
 
     private void DumpStorage() {
@@ -64,7 +56,6 @@ public class FileStorage implements Storage {
             Set<Map.Entry<Integer, User>> entrySet = storage.entrySet();
             for (Map.Entry<Integer, User> entry : entrySet) {
                 if (entry.getValue().equals(user)) {
-                    user.setId(entry.getKey());
                     entry.setValue(user);
                     break;
                 }

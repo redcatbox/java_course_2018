@@ -1,8 +1,5 @@
 package home.dbarannik.sergey.HW21;
 
-import home.dbarannik.sergey.HW20.Address;
-import home.dbarannik.sergey.HW20.Company;
-
 public class User {
     private Integer id;
     private String name;
