@@ -4,33 +4,39 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
-import java.util.Set;
-import java.util.TreeMap;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class FileStorage implements Storage {
-
     private Integer startUserId;
     private Integer lastUserId;
-    private Map storage;
+    private List<User> storage;
     private File file;
 
     public FileStorage(String fileName) {
-        this.startUserId = -1;
-        this.lastUserId = startUserId;
-        this.storage = new TreeMap();
-        this.file = new File("target/" + fileName);
+        startUserId = -1;
+        lastUserId = startUserId;
+        storage = new ArrayList();
+        file = new File("target/" + fileName);
+        LoadStorage();
     }
 
     private void LoadStorage() {
-        ObjectMapper objectMapper = new ObjectMapper();
-        try {
-            storage = objectMapper.readValue(file, new TypeReference<Map<Integer, String>>() {});
-        } catch (IOException e) {
-            e.printStackTrace();
+        if (file.exists()) {
+            ObjectMapper objectMapper = new ObjectMapper();
+            try {
+                storage = objectMapper.readValue(file, new TypeReference<List<User>>() {
+                });
+                if (!storage.isEmpty()) {
+//                    storage.sort(User::compareTo);
+                    lastUserId = storage.get(storage.size() - 1).getId();
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        } else {
+            System.out.println("Storage not found!");
         }
     }
 
@@ -49,23 +55,22 @@ public class FileStorage implements Storage {
 
     @Override
     public void addUser(User user) {
-        if (storage.containsValue(user)) {
+        if (storage.contains(user)) {
             System.out.println("User " + user.getName() + " already exist!");
         } else {
             user.setId(createUserId());
-            storage.put(user.getId(), user);
+            storage.add(user);
             DumpStorage();
         }
     }
 
     @Override
     public void updateUser(User user) {
-        if (storage.containsValue(user)) {
-            Set<Map.Entry<Integer, User>> entrySet = storage.entrySet();
-            for (Map.Entry<Integer, User> entry : entrySet) {
-                if (entry.getValue().equals(user)) {
-                    user.setId(entry.getKey());
-                    entry.setValue(user);
+        if (storage.contains(user)) {
+            for (int i = 0; i < storage.size(); i++) {
+                if (storage.get(i).equals(user)) {
+                    user.setId(storage.get(i).getId());
+                    storage.set(i, user);
                     break;
                 }
             }
@@ -83,8 +88,7 @@ public class FileStorage implements Storage {
 
     @Override
     public List<User> getAllUsers() {
-        ArrayList<User> usersList = new ArrayList<>(storage.values());
-        return usersList;
+        return storage;
     }
 
     @Override
@@ -96,11 +100,10 @@ public class FileStorage implements Storage {
     @Override
     public void removeUserByName(String name) {
         User user = new User(name, 0);
-        if (storage.containsValue(user)) {
-            Set<Map.Entry<Integer, User>> entrySet = storage.entrySet();
-            for (Map.Entry<Integer, User> entry : entrySet) {
-                if (entry.getValue().equals(user)) {
-                    storage.remove(entry.getKey());
+        if (storage.contains(user)) {
+            for (int i = 0; i < storage.size(); i++) {
+                if (storage.get(i).equals(user)) {
+                    storage.remove(i);
                     break;
                 }
             }

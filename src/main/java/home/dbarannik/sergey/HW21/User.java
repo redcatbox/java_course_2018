@@ -1,6 +1,6 @@
 package home.dbarannik.sergey.HW21;
 
-public class User {
+public class User implements Comparable<User> {
     private Integer id;
     private String name;
     private Integer age;
@@ -49,5 +49,10 @@ public class User {
 
         User user = (User) obj;
         return (user.name.equals(this.name));
+    }
+
+    @Override
+    public int compareTo(User other) {
+        return Integer.compare(this.id, other.id);
     }
 }

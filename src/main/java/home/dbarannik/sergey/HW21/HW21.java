@@ -11,7 +11,7 @@ public class HW21 {
         fileStorage.addUser(new User("Yulia", 20));     //2
         fileStorage.addUser(new User("Olga", 35));      //3
         fileStorage.addUser(new User("Igor", 40));      //4
-        fileStorage.addUser(new User("Igor", 45));      // this one should not be created, because already exists user with the same name
+        fileStorage.addUser(new User("Igor", 45));      //already exist
 
         System.out.println("Print users");
         System.out.println(fileStorage.getAllUsers().toString());
