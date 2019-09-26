@@ -44,8 +44,15 @@ public class HW21 {
         System.out.println("Get all users");
         System.out.println(fileStorage.getAllUsers().toString());
 
-        System.out.println("Remove all users");
-        fileStorage.removeAll();
+//        System.out.println("Remove all users");
+//        fileStorage.removeAll();
+//        System.out.println(fileStorage.getAllUsers().toString());
+
+        fileStorage.addUser(new User("Ivan", 25));      //0
+        fileStorage.addUser(new User("Sergey", 30));    //1
+        fileStorage.addUser(new User("Yulia", 20));     //2
+        fileStorage.addUser(new User("Olga", 35));      //3
+        fileStorage.addUser(new User("Igor", 40));      //4
         System.out.println(fileStorage.getAllUsers().toString());
     }
 }

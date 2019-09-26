@@ -19,10 +19,10 @@ public class FileStorage implements Storage {
         lastUserId = startUserId;
         storage = new ArrayList();
         file = new File("target/" + fileName);
-        LoadStorage();
+        loadFromStorage();
     }
 
-    private void LoadStorage() {
+    private void loadFromStorage() {
         if (file.exists()) {
             ObjectMapper objectMapper = new ObjectMapper();
             try {
@@ -40,7 +40,7 @@ public class FileStorage implements Storage {
         }
     }
 
-    private void DumpStorage() {
+    private void saveToStorage() {
         ObjectMapper objectMapper = new ObjectMapper();
         try {
             objectMapper.writerWithDefaultPrettyPrinter().writeValue(file, storage);
@@ -60,7 +60,7 @@ public class FileStorage implements Storage {
         } else {
             user.setId(createUserId());
             storage.add(user);
-            DumpStorage();
+            saveToStorage();
         }
     }
 
@@ -74,7 +74,7 @@ public class FileStorage implements Storage {
                     break;
                 }
             }
-            DumpStorage();
+            saveToStorage();
         } else {
             System.out.println("User " + user.getName() + " was not found!");
         }
@@ -94,7 +94,7 @@ public class FileStorage implements Storage {
     @Override
     public void removeUser(int id) {
         storage.remove(id);
-        DumpStorage();
+        saveToStorage();
     }
 
     @Override
@@ -107,7 +107,7 @@ public class FileStorage implements Storage {
                     break;
                 }
             }
-            DumpStorage();
+            saveToStorage();
         } else {
             System.out.println("User " + name + " was not found!");
         }
@@ -116,6 +116,6 @@ public class FileStorage implements Storage {
     @Override
     public void removeAll() {
         storage.clear();
-        DumpStorage();
+        saveToStorage();
     }
 }
