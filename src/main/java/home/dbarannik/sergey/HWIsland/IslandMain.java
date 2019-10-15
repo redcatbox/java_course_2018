@@ -10,7 +10,7 @@ public class IslandMain {
         };
 
         Island island = new Island(worldMap);
-        island.getPerimeter();
-        island.getSquare();
+        System.out.println("Island perimeter = " + island.getPerimeter());
+        System.out.println("Island square = " + island.getSquare());
     }
 }
